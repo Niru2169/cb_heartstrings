@@ -8,7 +8,6 @@ os.environ["GROQ_API_KEY"] = "gsk_s7Olb0DR0IZ7t40QAvQ1WGdyb3FYOUpAIiPNdmRjDlorBD
 os.environ["PINECONE_API_KEY"] = "a421fd7f-7ae5-496a-8b1d-2480d49bd4cb"         
 
 client = Groq(
-    # This is the default and can be omitted
     api_key=os.environ.get("GROQ_API_KEY"),
 )
 pc = Pinecone(api_key=os.environ.get("PINECONE_API_KEY"))
@@ -28,9 +27,7 @@ if not st.session_state.api_key:
 else:
     # If the API key exists, show the chat app
     st.title("Heartstrings")
-
-    # The line `with st.chat_message("assistant", avatar=""):` is creating a chat message bubble in
-    # the Streamlit app interface.
+    
     with st.chat_message("assistant",avatar="🤖"):
         st.write("Hi, How can I help")
     # Initialize the chat message list in session state if it doesn't exist
@@ -55,8 +52,6 @@ else:
                 with st.chat_message(messages["role"],avatar="😊"):
                     st.markdown(messages["content"])
                 
-    
-    # Define a function to simulate chat interaction (you would replace this with an actual API call)
     def get_chat():
         embedding = pc.inference.embed(
             model="multilingual-e5-large",
@@ -91,7 +86,7 @@ else:
             st.markdown(prompt)
         st.session_state.chat_messages.append({"role": "user", "content": prompt})
         st.session_state.groq_chat_messages.append({"role": "user", "content": prompt})
-        # Get the assistant's response (in this case, it's just echoing the prompt)
+        # Get the assistant's response
         with st.spinner("Getting responses..."):
             response = get_chat()
         with st.chat_message("assistant",avatar="🤖"):
