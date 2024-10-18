@@ -27,6 +27,7 @@ if not st.session_state.api_key:
 else:
     # If the API key exists, show the chat app
     st.title("Heartstrings")
+    st.snow()
     
     with st.chat_message("assistant",avatar="🤖"):
         st.write("Hi, How can I help")
